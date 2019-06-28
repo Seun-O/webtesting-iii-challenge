@@ -33,3 +33,18 @@ it("should have a lock gate or unlock gate button", () => {
   expect(leftButton).toBeInTheDocument();
   expect(leftButton).toBeDisabled();
 });
+
+it("buttons should be disabled based on locked/closed status", () => {
+  const locked = true;
+  const closed = false;
+
+  const { getByText } = render(<Controls locked={locked} closed={closed} />);
+  if (locked === true) {
+    const rightButton = getByText(/close gate/i);
+    expect(rightButton).toBeDisabled();
+  }
+  if (closed === false) {
+    const leftButton = getByText(/lock gate/i);
+    expect(leftButton).toBeDisabled();
+  }
+});
